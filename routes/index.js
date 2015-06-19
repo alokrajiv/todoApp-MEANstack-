@@ -3,7 +3,7 @@ var express = require('express'),
 	db = require('../db')
 
 /* GET home page. */
-router.get('*', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.sendfile('./public/index.html')
 })
 
@@ -15,7 +15,7 @@ router.get('/api/todos', function(req, res) {
         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
         if (err)
             res.send(err)
-
+        console.log(todos)
         res.json(todos) // return all todos in JSON format
     })
 })
