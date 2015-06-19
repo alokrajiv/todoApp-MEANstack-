@@ -3,9 +3,9 @@ var express = require('express'),
 	db = require('../db')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.send("Hello World")
-});
+router.get('*', function(req, res, next) {
+  res.sendfile('./public/index.html')
+})
 
 router.get('/api/todos', function(req, res) {
 
@@ -16,9 +16,9 @@ router.get('/api/todos', function(req, res) {
         if (err)
             res.send(err)
 
-        res.json(todos); // return all todos in JSON format
-    });
-});
+        res.json(todos) // return all todos in JSON format
+    })
+})
 
 // create todo and send back all todos after creation
 router.post('/api/todos', function(req, res) {
@@ -29,17 +29,17 @@ router.post('/api/todos', function(req, res) {
         done : false
     }, function(err, todo) {
         if (err)
-            res.send(err);
+            res.send(err)
 
         // get and return all the todos after you create another
         db.todoModel.find(function(err, todos) {
             if (err)
                 res.send(err)
-            res.json(todos);
-        });
-    });
+            res.json(todos)
+        })
+    })
 
-});
+})
 
 // delete a todo
 router.delete('/api/todos/:todo_id', function(req, res) {
@@ -47,16 +47,16 @@ router.delete('/api/todos/:todo_id', function(req, res) {
         _id : req.params.todo_id
     }, function(err, todo) {
         if (err)
-            res.send(err);
+            res.send(err)
 
         // get and return all the todos after you create another
         db.todoModel.find(function(err, todos) {
             if (err)
                 res.send(err)
-            res.json(todos);
-        });
-    });
-});
+            res.json(todos)
+        })
+    })
+})
 
 
-module.exports = router;
+module.exports = router
